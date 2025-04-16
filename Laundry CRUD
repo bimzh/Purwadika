@@ -77,7 +77,7 @@ def delete_order():
     for order in order_laundry:
         if order["id"] == id_order:
             order_laundry.remove(order)
-            print(f"🗑️ Order dengan ID {id_order} berhasil dihapus.")
+            print(f"Order dengan ID {id_order} berhasil dihapus.")
             return
     print(" Order tidak ditemukan.")
 
