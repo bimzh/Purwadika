@@ -1,0 +1,107 @@
+# Data collection: daftar semua order
+order_laundry = []
+
+# CREATE
+def buat_order():
+    print( "--- Buat Order Laundry Baru ---")
+    id_order = int(input("Masukkan ID Order: "))
+    nama_pelanggan = input("Nama Pelanggan: ")
+    tipe_baju= input("Jenis Pakaian: ")
+    berat_kg = float(input("Berat (kg): "))
+    tipe_laundry = input("Jenis Layanan (regular/express): ").lower()
+
+    # Conditional Statement untuk harga
+    if tipe_laundry == "regular":
+        harga_per_kg = 20000
+    elif tipe_laundry == "express":
+        harga_per_kg = 35000
+    else:
+        print("Jenis layanan tidak valid.")
+        return
+
+    total_harga = berat_kg * harga_per_kg
+
+    order = {
+        "id": id_order,
+        "pelanggan": nama_pelanggan,
+        "tipe_baju": tipe_baju,
+        "berat": berat_kg,
+        "tipe_laundry": tipe_laundry,
+        "harga": total_harga
+    }
+
+    order_laundry.append(order)
+    print(f" Order untuk {nama_pelanggan} berhasil dibuat dengan total Rp{total_harga:,}")
+
+# READ
+def baca_orders():
+    print("--- Daftar Order Laundry ---")
+    if not order_laundry:
+        print(" Belum ada order.")
+    else:
+        for order in order_laundry:  # Looping
+            print(f"ID: {order['id']}, Nama: {order['pelanggan']}, Jenis: {order['tipe_baju']}, "
+                  f"Berat: {order['berat']}kg, Layanan: {order['tipe_laundry']}, Harga: Rp{order['harga']:,}")
+
+# UPDATE
+def update_order():
+    print("\n=== Update Order ===")
+    id_order = int(input("Masukkan ID Order yang ingin diupdate: "))
+    for order in order_laundry:  # Looping
+        if order["id"] == id_order:
+            print(f"Order ditemukan untuk {order['pelanggan']}")
+            berat_baru= float(input("Masukkan berat baru (kg): "))
+            servis_baru = input("Masukkan jenis layanan baru (regular/express): ").lower()
+
+            # Conditional Statement
+            if servis_baru == "regular":
+                harga_per_kg = 20000
+            elif servis_baru == "express":
+                harga_per_kg = 35000
+            else:
+                print("Jenis layanan tidak valid.")
+                return
+
+            # Update data
+            order["berat"] = berat_baru
+            order["tipe_laundry"] = servis_baru
+            order["harga"] = berat_baru * harga_per_kg
+            print(" Order berhasil diperbarui.")
+            return
+    print(" Order tidak ditemukan.")
+
+# DELETE
+def delete_order():
+    print("--- Hapus Order ---")
+    id_order = int(input("Masukkan ID Order yang ingin dihapus: "))
+    for order in order_laundry:
+        if order["id"] == id_order:
+            order_laundry.remove(order)
+            print(f"🗑️ Order dengan ID {id_order} berhasil dihapus.")
+            return
+    print(" Order tidak ditemukan.")
+
+# MAIN MENU
+while True:
+    print("---- MENU LAUNDRY ---")
+    print("1. Buat Order")
+    print("2. Lihat Semua Order")
+    print("3. Update Order")
+    print("4. Hapus Order")
+    print("5. Keluar")
+
+    pilihan = input("Pilih menu (1-5): ")
+
+    if pilihan == "1":
+        buat_order()
+    elif pilihan == "2":
+        baca_orders()
+    elif pilihan == "3":
+        update_order()
+    elif pilihan == "4":
+        delete_order()
+    elif pilihan == "5":
+        print(" Terima kasih telah menggunakan sistem laundry!")
+        break
+    else:
+        print(" Pilihan tidak valid.")
