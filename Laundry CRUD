@@ -45,7 +45,7 @@ def baca_orders():
 
 # UPDATE
 def update_order():
-    print("\n=== Update Order ===")
+    print("--- Update Order ---")
     id_order = int(input("Masukkan ID Order yang ingin diupdate: "))
     for order in order_laundry:  # Looping
         if order["id"] == id_order:
